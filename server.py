@@ -86,7 +86,7 @@ def compress_pdf(path: Path, profile: str) -> tuple[bytes, int]:
             raise ValueError("В документе нет страниц.")
         pages = doc.page_count
         # Recompress images while preserving vector content and selectable text.
-        doc.rewrite_images(dpi_threshold=None, dpi_target=dpi, quality=quality,
+        doc.rewrite_images(dpi_threshold=int(dpi * 1.5), dpi_target=dpi, quality=quality,
                            lossy=True, lossless=True, bitonal=False, color=True, gray=True)
         candidate = doc.tobytes(garbage=4, deflate=True, deflate_images=True,
                                 deflate_fonts=True, use_objstms=1)
